@@ -4,11 +4,20 @@ import WeatherInfo from "./WeatherInfo";
 import WeatherForecast from "./WeatherForecast";
 import "./Weather.css";
 
+/**
+ * pass props to components
+ * instead of writing of "props" as arg, we destructure all the required props
+ * as (props) => ({defaultCity})
+ */
 export default function Weather({ defaultCity }) {
   let [populated, setPopulated] = useState(false);
   const [weatherData, setWeatherData] = useState({});
   const [city, setCity] = useState(defaultCity);
 
+  /**
+   * useCallback is a React Hook which runs only on change in state in dependency array.
+   * It's a Higher Order Function (HOF)
+   */
   const search = useCallback(() => {
     const apiKey = "e744bfafcb3c1411c3f393198d753e28";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -49,6 +58,9 @@ export default function Weather({ defaultCity }) {
     setCity(event.target.value);
   }
 
+  /**
+   * Write condition inside return() for better clarity
+   */
   return (
     <React.Fragment>
       {populated ? (
